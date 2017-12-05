@@ -1,0 +1,161 @@
+<!-- https://codelabs.developers.google.com/codelabs/your-first-pwapp -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Progressive Weather Web App</title>
+		<link rel="icon" href="favicon.ico">
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+	<body>
+		
+		<header class="header">
+			<h1 class="header-title">Weather PWA</h1>
+			<button id="btn-refresh" class="headerBtn" aria-label="Refresh"></button>
+			<button id="btn-add" class="headerBtn" aria-label="Add"></button>
+		</header>
+
+		<main class="main">
+			<div class="card cardTemplate weather-forecast" hidden>
+
+				<div class="city-key" hidden></div>
+				<div class="card-last-updated" hidden></div>
+				<div class="location"></div>
+				<div class="date"></div>
+				<div class="description"></div>
+
+				<div class="current">
+					<div class="visual">
+						<div class="icon"></div>
+						<div class="temperature">
+							<span class="value"></span>
+							<span class="scale">&deg;C</span>
+						</div>
+					</div>
+					<div class="description">
+						<div class="humidity"></div>
+						<div class="wind">
+							<span class="value"></span>
+							<span class="scale">m/s</span>
+							<span class="direction"></span>
+							&deg;
+						</div>
+						<div class="sunrise"></div>
+						<div class="sunset"></div>
+					</div>
+				</div>
+
+				<div class="future">
+					<div class="oneday">
+						<div class="date"></div>
+						<div class="icon"></div>
+						<div class="temp-high">
+							<span class="value"></span>&deg;
+						</div>
+						<div class="temp-low">
+							<span class="value"></span>&deg;
+						</div>
+					</div>
+					<div class="oneday">
+						<div class="date"></div>
+						<div class="icon"></div>
+						<div class="temp-high">
+							<span class="value"></span>&deg;
+						</div>
+						<div class="temp-low">
+							<span class="value"></span>&deg;
+						</div>
+					</div>
+					<div class="oneday">
+						<div class="date"></div>
+						<div class="icon"></div>
+						<div class="temp-high">
+							<span class="value"></span>&deg;
+						</div>
+						<div class="temp-low">
+							<span class="value"></span>&deg;
+						</div>
+					</div>
+					<div class="oneday">
+						<div class="date"></div>
+						<div class="icon"></div>
+						<div class="temp-high">
+							<span class="value"></span>&deg;
+						</div>
+						<div class="temp-low">
+							<span class="value"></span>&deg;
+						</div>
+					</div>
+					<div class="oneday">
+						<div class="date"></div>
+						<div class="icon"></div>
+						<div class="temp-high">
+							<span class="value"></span>&deg;
+						</div>
+						<div class="temp-low">
+							<span class="value"></span>&deg;
+						</div>
+					</div>
+					<div class="oneday">
+						<div class="date"></div>
+						<div class="icon"></div>
+						<div class="temp-high">
+							<span class="value"></span>&deg;
+						</div>
+						<div class="temp-low">
+							<span class="value"></span>&deg;
+						</div>
+					</div>
+					<div class="oneday">
+						<div class="date"></div>
+						<div class="icon"></div>
+						<div class="temp-high">
+							<span class="value"></span>&deg;
+						</div>
+						<div class="temp-low">
+							<span class="value"></span>&deg;
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</main>
+
+		<div class="dialog-container">
+			<div class="dialog">
+				
+				<div class="dialog-title">Add new city</div>
+
+				<div class="dialog-body">
+					<select id="selectCityToAdd">
+						<!-- Values map to Yahoo Weather API Where On Earth Identifiers (WOEIDs).
+							https://developer.yahoo.com/weather/documentation.html#req -->
+						<option value="924938">Kyiv, UA</option>
+						<option value="44418">London, GB</option>
+						<option value="1118370">Tokyo, JP</option>
+						<option value="2459115">New York, US</option>
+						<option value="615702">Paris, FR</option>
+						<option value="721943">Rome, IT</option>
+						<option value="1940330">Abu Dhabi, UE</option>
+					</select>
+				</div>
+
+				<div class="dialog-buttons">
+					<button id="btn-addCity" class="btn">Add</button>
+					<button id="btn-addCancel" class="btn">Cancel</button>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="loader">
+			<svg viewBox="0 0 32 32" width="32" height="32">
+				<circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+			</svg>
+		</div>
+
+		<script src="js/app.js" async></script>
+
+	</body>
+</html>
