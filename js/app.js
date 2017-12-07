@@ -28,15 +28,26 @@
 		var selected = select.options[select.selectedIndex];
 		var key = selected.value;
 		var label = selected.textContent;
-		// TODO init the app.selectedCities array here
+		if (!app.selectedCities) {
+			app.selectedCities = [];
+		}
 		app.getForecast(key, label);
-		// TODO push the selected city to the array and save here
+		app.selectedCities.push({key: key, label: label});
+		app.saveSelectedCities();
 		app.toggleAddDialog(false);
 	});
 
 	document.getElementById("btn-addCancel").addEventListener("click", function() {
 		// close the add new city dialog
 		app.toggleAddDialog(false);
+	});
+
+	// delegate event listener to make it work with dynamic content
+	// https://davidwalsh.name/event-delegate
+	document.getElementById("body").addEventListener("click", function(event) {
+		if (event.target && event.target.className === "deleteCardBtn") {
+			app.removeCity(event.target.parentNode);
+		}
 	});
 
 	app.addDialog.addEventListener("click", function(event) {
@@ -55,7 +66,7 @@
 			app.addDialog.classList.remove("dialog-container-visible");
 		}
 	};
-	// update a weather card with the latest weather forecast. If the card doesn't already exist, it's cloned from the template.
+	// Update a weather card with the latest weather forecast. If the card doesn't already exist, it's cloned from the template.
 	app.updateForecastCard = function(data) {
 		var dataLastUpdated = new Date(data.created);
 		var sunrise = data.channel.astronomy.sunrise;
@@ -88,6 +99,8 @@
 
 		card.querySelector(".description").textContent = current.text;
 		card.querySelector(".date").textContent = current.date;
+		// !!! clear initial default class
+		card.querySelector(".current .icon").classList.remove("clear-day", "rain", "thunderstorms", "snow", "fog", "windy", "cloudy", "partly-cloudy-day");
 		card.querySelector(".current .icon").classList.add(app.getIconClass(current.code));
 		card.querySelector(".current .temperature .value").textContent = Math.round(current.temp);
 		card.querySelector(".current .sunrise").textContent = sunrise;
@@ -104,6 +117,8 @@
 			var daily = data.channel.item.forecast[i];
 			if (daily && nextDay) {
 				nextDay.querySelector(".date").textContent = app.daysOfWeek[(i + today) % 7];
+				// !!! clear initial default class
+				nextDay.querySelector(".icon").classList.remove("clear-day", "rain", "thunderstorms", "snow", "fog", "windy", "cloudy", "partly-cloudy-day");
 				nextDay.querySelector(".icon").classList.add(app.getIconClass(daily.code));
 				nextDay.querySelector(".temp-high .value").textContent = Math.round(daily.high);
 				nextDay.querySelector(".temp-low .value").textContent = Math.round(daily.low);
@@ -125,7 +140,7 @@
 	*/
 
 	app.getForecast = function(key, label) {
-		var statement = "select * from weather.forecast where WOEID=" + key + " and u='c'";
+		var statement = "SELECT * FROM weather.forecast WHERE woeid=" + key + " and u='c'";
 		var url = "https://query.yahooapis.com/v1/public/yql?format=json&q=" + statement;
 		// TODO add cache logic here
 
@@ -156,7 +171,36 @@
 		});
 	};
 
-	// TODO add saveSelectedCities function here
+	// Save list of cities to localStorage
+	app.saveSelectedCities = function() {
+		var selectedCities = JSON.stringify(app.selectedCities);
+		localStorage.selectedCities = selectedCities;
+	};
+
+	// Remove city card
+	app.removeCity = function(city) {
+		// get textContent of a div with class "location" in the city card
+		var cityLabelElem = null;
+		for (var i = 0; i < city.childNodes.length; i++) {
+			if (city.childNodes[i].className == "location") {
+				cityLabelElem = city.childNodes[i];
+				break;
+			}
+		}
+		var keyToDelete = cityLabelElem.textContent;
+		// search for the city in selectedCities array and remove it if textContent == label
+		for (var i = 0; i < app.selectedCities.length; i++) {
+			if (app.selectedCities[i].label == keyToDelete) {
+				app.selectedCities.splice(i, 1);
+				break;
+			}
+		}
+		// save changes to localStorage and remove the card from the DOM
+		app.saveSelectedCities();
+		city.parentNode.removeChild(city);
+		alert("City removed");
+		return false;
+	};
 
 	app.getIconClass = function(weatherCode) {
 		// weather codes: https://developer.yahoo.com/weather/documentation.html#codes
@@ -264,7 +308,30 @@
 	// TODO uncomment line below to test app with fake data
 	// app.updateForecastCard(initialWeatherForecast);
 
-	// TODO add startup code here
+	/* Code required to start the app
+	NOTE: To simplify this codelab, we've used localStorage.
+	localStorage is a synchronous API and has serious performance implications. It should not be used in production applications!
+	Instead, check out IDB (https://www.npmjs.com/package/idb) or SimpleDB (https://gist.github.com/inexorabletash/c8069c042b734519680c) */
+
+	app.selectedCities = localStorage.selectedCities;
+	if (app.selectedCities) {
+		app.selectedCities = JSON.parse(app.selectedCities);
+		app.selectedCities.forEach(function(city) {
+			app.getForecast(city.key, city.label);
+		});
+	} else {
+		/* The user is using the app for the first time, or the user has not saved any cities, so show the user some fake data.
+		A real app in this scenario could guess the user's location via IP lookup and then inject that data into the page. */
+		app.updateForecastCard(initialWeatherForecast);
+		app.selectedCities = [
+			{
+				key: initialWeatherForecast.key,
+				label: initialWeatherForecast.label
+			}
+		];
+		app.saveSelectedCities();
+	}
+
 
 	// TODO add service worker code here
 })();

@@ -8,17 +8,18 @@
 		<link rel="icon" href="favicon.ico">
 		<link rel="stylesheet" href="css/main.css">
 	</head>
-	<body>
+	<body id="body">
 		
 		<header class="header">
 			<h1 class="header-title">Weather PWA</h1>
-			<button id="btn-refresh" class="headerBtn" aria-label="Refresh"></button>
-			<button id="btn-add" class="headerBtn" aria-label="Add"></button>
+			<button id="btn-refresh" class="headerBtn" aria-label="Refresh" title="Refresh"></button>
+			<button id="btn-add" class="headerBtn" aria-label="Add" title="Add"></button>
 		</header>
 
 		<main class="main">
 			<div class="card cardTemplate weather-forecast" hidden>
 
+				<button class="deleteCardBtn" title="Remove city">&times;</button>
 				<div class="city-key" hidden></div>
 				<div class="card-last-updated" hidden></div>
 				<div class="location"></div>
