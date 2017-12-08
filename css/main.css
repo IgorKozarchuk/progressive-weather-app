@@ -212,7 +212,7 @@ body {
 	-webkit-overflow-scrolling: touch;
 }
 
-.dialog-container {
+.dialog-container, .cityRemoved-dialog-container {
 	background-color: rgba(0, 0, 0, 0.57);
 	position: fixed;
 	top: 0;
@@ -226,12 +226,12 @@ body {
 	transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
 }
 
-.dialog-container-visible {
+.dialog-container-visible, .cityRemoved-dialog-container-visible {
 	opacity: 1;
 	pointer-events: auto;
 }
 
-.dialog {
+.dialog, .cityRemoved-dialog {
 	background-color: #fff;
 	border-radius: 2px;
 	box-shadow: 0 0 14px rgba(0, 0, 0, 0.24), 0 14px 28px rgba(0, 0, 0, 0.48);
@@ -273,6 +273,12 @@ body {
 	color: #fff;
 	border: none;
 	text-transform: uppercase;
+}
+
+.cityRemoved-dialog {
+	padding: 40px 20px;
+	text-align: center;
+	font-size: 1.5em;
 }
 
 #btn-addCancel {

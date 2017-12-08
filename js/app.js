@@ -9,6 +9,7 @@
 		cardTemplate: document.querySelector(".cardTemplate"),
 		container: document.querySelector(".main"),
 		addDialog: document.querySelector(".dialog-container"),
+		removedDialog: document.querySelector(".cityRemoved-dialog-container"),
 		daysOfWeek: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 	};
 
@@ -47,6 +48,7 @@
 	document.getElementById("body").addEventListener("click", function(event) {
 		if (event.target && event.target.className === "deleteCardBtn") {
 			app.removeCity(event.target.parentNode);
+			app.toggleRemovedDialog();
 		}
 	});
 
@@ -65,6 +67,13 @@
 		} else {
 			app.addDialog.classList.remove("dialog-container-visible");
 		}
+	};
+	// toggle the visibility of the city removed dialog
+	app.toggleRemovedDialog = function() {
+		app.removedDialog.classList.add("cityRemoved-dialog-container-visible");
+		setTimeout(function() {
+			app.removedDialog.classList.remove("cityRemoved-dialog-container-visible");
+		}, 1500);
 	};
 	// Update a weather card with the latest weather forecast. If the card doesn't already exist, it's cloned from the template.
 	app.updateForecastCard = function(data) {
@@ -198,7 +207,6 @@
 		// save changes to localStorage and remove the card from the DOM
 		app.saveSelectedCities();
 		city.parentNode.removeChild(city);
-		alert("City removed");
 		return false;
 	};
 
