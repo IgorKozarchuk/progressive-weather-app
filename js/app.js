@@ -32,9 +32,13 @@
 		if (!app.selectedCities) {
 			app.selectedCities = [];
 		}
-		app.getForecast(key, label);
-		app.selectedCities.push({key: key, label: label});
-		app.saveSelectedCities();
+		for(var i = 0; i < app.selectedCities.length; i++) {
+			if (app.selectedCities[i].label !== label && i === app.selectedCities.length - 1) { // check if city hasn't been added already
+				app.getForecast(key, label);
+				app.selectedCities.push({key: key, label: label});
+				app.saveSelectedCities();
+			}
+		}
 		app.toggleAddDialog(false);
 	});
 
@@ -207,6 +211,7 @@
 		// save changes to localStorage and remove the card from the DOM
 		app.saveSelectedCities();
 		city.parentNode.removeChild(city);
+		location.reload(); // !!! to make the card apper after removing and adding the same city again
 		return false;
 	};
 
