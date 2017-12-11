@@ -77,6 +77,7 @@
 		app.removedDialog.classList.add("cityRemoved-dialog-container-visible");
 		setTimeout(function() {
 			app.removedDialog.classList.remove("cityRemoved-dialog-container-visible");
+			location.reload(); // !!! to make the card apper after removing and adding the same city again
 		}, 1500);
 	};
 	// Update a weather card with the latest weather forecast. If the card doesn't already exist, it's cloned from the template.
@@ -211,7 +212,6 @@
 		// save changes to localStorage and remove the card from the DOM
 		app.saveSelectedCities();
 		city.parentNode.removeChild(city);
-		location.reload(); // !!! to make the card apper after removing and adding the same city again
 		return false;
 	};
 
