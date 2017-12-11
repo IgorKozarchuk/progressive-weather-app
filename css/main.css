@@ -305,16 +305,16 @@ body {
 	font-size: 30px;
 	border-radius: 50%;
 	border: none;
-	color: #444;
-	background-color: #d9d9d9;
+	color: #888;
+	background-color: #fff;
 	outline: none;
 	cursor: pointer;
 	transition: all 0.3s ease;
 }
 
 .deleteCardBtn:hover {
-	color: #cc351e;
-	background-color: #f7d3ce;
+	color: #fff;
+	background-color: #cc351e;
 }
 
 .weather-forecast .location {
