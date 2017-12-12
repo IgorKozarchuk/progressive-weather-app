@@ -32,12 +32,18 @@
 		if (!app.selectedCities) {
 			app.selectedCities = [];
 		}
-		for(var i = 0; i < app.selectedCities.length; i++) {
-			if (app.selectedCities[i].label !== label && i === app.selectedCities.length - 1) { // check if city hasn't been added already
-				app.getForecast(key, label);
-				app.selectedCities.push({key: key, label: label});
-				app.saveSelectedCities();
+		if (app.selectedCities.length) { // if city list is not empty, check if city hasn't been added already, and if not add city
+			for(var i = 0; i < app.selectedCities.length; i++) {
+				if (app.selectedCities[i].label !== label && i === app.selectedCities.length - 1) {
+					app.getForecast(key, label);
+					app.selectedCities.push({key: key, label: label});
+					app.saveSelectedCities();
+				}
 			}
+		} else { // if city list is empty, add city
+			app.getForecast(key, label);
+			app.selectedCities.push({key: key, label: label});
+			app.saveSelectedCities();
 		}
 		app.toggleAddDialog(false);
 	});
@@ -168,10 +174,10 @@
 				results.label = label;
 				results.created = response.query.created;
 				app.updateForecastCard(results);
-			} else {
+			} //else {
 				// return the initial weather forecast since no data available
-				app.updateForecastCard(initialWeatherForecast);
-			}
+				// app.updateForecastCard(initialWeatherForecast); // !!! if uncommented default city appers again after removing
+			//}
 		};
 		request.open("GET", url);
 		request.send();
@@ -344,7 +350,6 @@
 		];
 		app.saveSelectedCities();
 	}
-
 
 	// TODO add service worker code here
 })();
