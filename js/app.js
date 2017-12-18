@@ -174,10 +174,10 @@
 				results.label = label;
 				results.created = response.query.created;
 				app.updateForecastCard(results);
-			} //else {
+			} else {
 				// return the initial weather forecast since no data available
-				// app.updateForecastCard(initialWeatherForecast); // !!! if uncommented default city appers again after removing
-			//}
+				app.updateForecastCard(initialWeatherForecast); // !!! if uncommented default city appers again after removing
+			}
 		};
 		request.open("GET", url);
 		request.send();
@@ -351,5 +351,13 @@
 		app.saveSelectedCities();
 	}
 
-	// TODO add service worker code here
+	// Service worker
+	if ("serviceWorker" in navigator) {
+		navigator.serviceWorker
+			.register("../service-worker.js")
+			.then(function() {
+				console.log("Service Worker Registered");
+			});
+	}
+
 })();
