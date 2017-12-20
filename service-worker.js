@@ -1,23 +1,23 @@
 var dataCacheName = "weatherData-v1";
 var cacheName = "weatherPWA-v1";
 var filesToCache = [
-// 	"/",
+	"/",
 	"/index.html",
 	"/js/app.js",
-	"/css/main.css"
-// 	"/img/clear.png",
-// 	"/img/cloudy.png",
-// 	"/img/cloudy-scattered-showers.png",
-// 	"/img/fog.png",
-// 	"/img/ic_add_white_24px.svg",
-// 	"/img/ic_refresh_white_24px.svg",
-// 	"/img/partly-cloudy.png",
-// 	"/img/rain.png",
-// 	"/img/scattered-showers.png",
-// 	"/img/sleet.png",
-// 	"/img/snow.png",
-// 	"/img/thunderstorm.png",
-// 	"/img/wind.png"
+	"/css/main.css",
+	"/img/clear.png",
+	"/img/cloudy.png",
+	"/img/cloudy-scattered-showers.png",
+	"/img/fog.png",
+	"/img/ic_add_white_24px.svg",
+	"/img/ic_refresh_white_24px.svg",
+	"/img/partly-cloudy.png",
+	"/img/rain.png",
+	"/img/scattered-showers.png",
+	"/img/sleet.png",
+	"/img/snow.png",
+	"/img/thunderstorm.png",
+	"/img/wind.png"
 ];
 
 self.addEventListener("install", function(event) {
