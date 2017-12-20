@@ -4,7 +4,7 @@ var filesToCache = [
 // 	"/",
 	"/index.html",
 	"/js/app.js",
-	"/css/main.css",
+	"/css/main.css"
 // 	"/img/clear.png",
 // 	"/img/cloudy.png",
 // 	"/img/cloudy-scattered-showers.png",
