@@ -258,6 +258,7 @@ body {
 .dialog-body select {
 	width: 100%;
 	font-size: 1.25em;
+	font-family: Helvetica, Verdana, sans-serif;
 }
 
 .dialog-buttons {
@@ -273,6 +274,7 @@ body {
 	color: #fff;
 	border: none;
 	text-transform: uppercase;
+	font-family: Helvetica, Verdana, sans-serif;
 }
 
 .cityRemoved-dialog {
@@ -301,10 +303,10 @@ body {
 	float: right;
 	width: 30px;
 	height: 30px;
+	text-align: center;
 	line-height: 30px;
 	font-size: 30px;
 	border-radius: 50%;
-	border: none;
 	color: #888;
 	background-color: #fff;
 	outline: none;
