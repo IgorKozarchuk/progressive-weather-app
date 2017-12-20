@@ -469,7 +469,9 @@ body {
 	background-image: url("../img/thunderstorm.png");
 }
 
-@media (max-width: 450px) {
+
+
+@media (max-width: 500px) {
 	.weather-forecast .date, .weather-forecast .description {
 		font-size: 0.9em;
 	}
@@ -483,6 +485,16 @@ body {
 	.weather-forecast .future .oneday .icon {
 		width: 32px;
 		height: 32px;
+	}
+}
+
+@media (max-width: 380px) {
+	.weather-forecast .current .icon {
+		width: 72px;
+		height: 72px;
+	}
+	.weather-forecast .current .visual {
+		font-size: 2em;
 	}
 }
 
